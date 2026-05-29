@@ -1,0 +1,289 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2196F3;--blue-dark:#1565C0;--blue-light:#42A5F5;
+  --bg1:#080B12;--bg2:#0D1117;--bg3:#111827;
+  --text:#F0F4FF;--muted:#8B9DC3;--border:#1E2D4A;
+}
+.cv-root{font-family:'Space Grotesk',sans-serif;background:var(--bg1);color:var(--text);position:relative;overflow:hidden}
+.cv-root::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(33,150,243,.10) 1px,transparent 1px);background-size:36px 36px;pointer-events:none;z-index:0}
+
+.hero{padding:2.5rem 2rem 2rem;position:relative;z-index:1;border-bottom:0.5px solid var(--border)}
+.hero-top{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:1.25rem}
+.avatar{width:88px;height:88px;border-radius:50%;background:var(--bg3);border:2px solid var(--blue);object-fit:cover;display:block;flex-shrink:0}
+.avatar-fallback{width:88px;height:88px;border-radius:50%;background:var(--bg3);border:2px solid var(--blue);display:none;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--blue);flex-shrink:0}
+.badge-row{display:flex;align-items:center;gap:8px;margin-bottom:.5rem}
+.badge{display:inline-flex;align-items:center;gap:5px;background:rgba(33,150,243,.12);color:var(--blue-light);border:0.5px solid rgba(33,150,243,.35);border-radius:20px;padding:3px 12px;font-size:10px;letter-spacing:2px;font-family:'DM Mono',monospace}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.hero-name{font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.5px;line-height:1.1;margin-bottom:.25rem}
+.hero-name span{color:var(--blue)}
+.hero-title{font-size:13px;color:var(--muted);letter-spacing:.3px;line-height:1.6}
+.contact-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.75rem}
+.contact-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.04);border:0.5px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;text-decoration:none;transition:border-color .2s,color .2s}
+.contact-chip:hover{border-color:var(--blue);color:var(--blue-light)}
+.contact-chip i{font-size:13px;color:var(--blue)}
+.tag-strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem}
+.tag{background:rgba(33,150,243,.08);border:0.5px solid rgba(33,150,243,.2);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted)}
+
+.nav-tabs{display:flex;gap:0;border-bottom:0.5px solid var(--border);position:relative;z-index:1;background:var(--bg2);overflow-x:auto}
+.tab{padding:.75rem 1.25rem;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'DM Mono',monospace;background:none;border-top:none;border-left:none;border-right:none}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue-light);border-bottom-color:var(--blue)}
+
+.panel{display:none;padding:1.75rem 2rem;position:relative;z-index:1;min-height:240px}
+.panel.active{display:block}
+
+.section-label{font-size:10px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:.5rem}
+.section-title{font-size:18px;font-weight:600;color:#fff;margin-bottom:1rem}
+
+.prop-block{background:rgba(255,255,255,.03);border:0.5px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:.75rem}
+.prop-block p{font-size:13px;color:var(--muted);line-height:1.8}
+.prop-block p strong{color:var(--text);font-weight:500}
+
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.5rem;margin-top:.5rem}
+.result-card{background:rgba(33,150,243,.06);border:0.5px solid var(--border);border-left:2px solid var(--blue);border-radius:0 8px 8px 0;padding:.875rem 1rem}
+.result-card .rc-icon{font-size:18px;color:var(--blue);margin-bottom:.4rem}
+.result-card .rc-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:.25rem}
+.result-card .rc-text{font-size:12px;color:var(--muted);line-height:1.5}
+
+.timeline{position:relative;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:1.5rem}
+.tl-dot{position:absolute;left:-1.5rem;top:4px;width:10px;height:10px;border-radius:50%;background:var(--bg1);border:2px solid var(--blue);z-index:1}
+.tl-item.current .tl-dot{background:var(--blue)}
+.tl-date{font-size:10px;font-family:'DM Mono',monospace;color:var(--blue);letter-spacing:1px;margin-bottom:.2rem}
+.tl-role{font-size:14px;font-weight:600;color:#fff;margin-bottom:.15rem}
+.tl-company{font-size:12px;color:var(--blue-light);margin-bottom:.35rem}
+.tl-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+.edu-row{background:rgba(255,255,255,.03);border:0.5px solid var(--border);border-radius:8px;padding:.875rem 1rem;margin-bottom:.5rem;display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:flex-start}
+.edu-icon{width:34px;height:34px;background:rgba(33,150,243,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.edu-icon i{font-size:16px;color:var(--blue)}
+.edu-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:.15rem}
+.edu-inst{font-size:11px;color:var(--blue-light);margin-bottom:.1rem}
+.edu-period{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted)}
+
+.skill-grid{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+.skill-tag{background:rgba(255,255,255,.04);border:0.5px solid var(--border);border-radius:6px;padding:4px 12px;font-size:12px;color:var(--muted)}
+
+.contact-block{background:rgba(255,255,255,.03);border:0.5px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:.5rem;display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:center}
+.contact-block a{font-size:13px;color:var(--blue-light);text-decoration:none}
+.contact-block a:hover{text-decoration:underline}
+.contact-block .cb-label{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:.15rem}
+</style>
+
+<div class="cv-root">
+
+<div class="hero">
+  <div class="hero-top">
+    <img class="avatar" src="/mnt/project/Foto_Perfil_Antonio.png" alt="Antonio Villalobos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="avatar-fallback">AV</div>
+    <div>
+      <div class="badge-row">
+        <span class="badge">Ejecutivo Senior</span>
+        <span class="badge">30+ años</span>
+      </div>
+      <div class="hero-name">Antonio <span>Villalobos</span> Santelices</div>
+      <div class="hero-title">Ingeniero Civil Industrial · Innovación Aplicada · IA · Escalabilidad · Transformación Empresarial</div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <a href="mailto:avillalobos@altkimia.com" class="contact-chip"><i class="ti ti-mail" aria-hidden="true"></i>avillalobos@altkimia.com</a>
+    <a href="tel:+56998251563" class="contact-chip"><i class="ti ti-phone" aria-hidden="true"></i>+56 9 9825 1563</a>
+    <a href="https://www.altkimia.com" target="_blank" class="contact-chip"><i class="ti ti-world" aria-hidden="true"></i>altkimia.com</a>
+    <a href="https://linkedin.com/in/antoniovillalobossantelices" target="_blank" class="contact-chip"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn</a>
+  </div>
+  <div class="tag-strip">
+    <span class="tag">IA Aplicada</span><span class="tag">Escalabilidad</span><span class="tag">Transformación Empresarial</span><span class="tag">GovTech</span><span class="tag">EdTech</span><span class="tag">LATAM</span><span class="tag">Ecosistemas de Innovación</span><span class="tag">Modernización Pública</span>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <button class="tab active" onclick="showTab('perfil',this)">Perfil</button>
+  <button class="tab" onclick="showTab('experiencia',this)">Experiencia</button>
+  <button class="tab" onclick="showTab('educacion',this)">Educación</button>
+  <button class="tab" onclick="showTab('resultados',this)">Resultados</button>
+  <button class="tab" onclick="showTab('contacto',this)">Contacto</button>
+</div>
+
+<div id="perfil" class="panel active">
+  <div class="section-label">Propósito profesional</div>
+  <div class="section-title">¿A qué me dedico?</div>
+  <div class="prop-block">
+    <p>Contribuir al desarrollo económico y social de la Región de Valparaíso y de Chile desde una mirada orientada a <strong>modernización, productividad, innovación aplicada</strong> y fortalecimiento de capacidades territoriales, promoviendo inversión, emprendimiento competitivo y transformación organizacional.</p>
+  </div>
+  <div style="margin-top:1.25rem">
+    <div class="section-label">Motivación</div>
+  </div>
+  <div class="prop-block">
+    <p>Aportar al desarrollo regional mediante articulación público-privada, innovación, digitalización y fortalecimiento de ecosistemas productivos, impulsando <strong>competitividad, modernización y crecimiento sostenible</strong> para empresas, instituciones y territorios.</p>
+  </div>
+  <div style="margin-top:1.25rem">
+    <div class="section-label">Perfil ejecutivo</div>
+  </div>
+  <div class="prop-block">
+    <p>Ingeniero Civil Industrial, <strong>ejecutivo senior y emprendedor de base tecnológica</strong> con más de 30 años de experiencia en innovación aplicada, transformación digital y desarrollo territorial en Chile y Latinoamérica.</p>
+    <p style="margin-top:.625rem">Experiencia liderando proyectos tecnológicos y de modernización de la gestión para instituciones públicas y privadas, con foco en procesos, plataformas tecnológicas, infraestructura y escalabilidad organizacional.</p>
+    <p style="margin-top:.625rem"><strong>Cofundador y director</strong> de empresas de IA, EdTech, GovTech y Transformación Organizacional.</p>
+  </div>
+</div>
+
+<div id="experiencia" class="panel">
+  <div class="section-label">Trayectoria</div>
+  <div class="section-title">Experiencia profesional</div>
+  <div class="timeline">
+    <div class="tl-item current">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2025 – PRESENTE</div>
+      <div class="tl-role">Miembro Panel de Actores Claves — GEIAL</div>
+      <div class="tl-desc">Participación en estrategias de innovación e inteligencia territorial para Latinoamérica.</div>
+    </div>
+    <div class="tl-item current">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2024 – PRESENTE</div>
+      <div class="tl-role">Director Valpo Emprende — Ecosistema EIVA</div>
+      <div class="tl-desc">Articulación de iniciativas de innovación, emprendimiento y desarrollo territorial en la Región de Valparaíso.</div>
+    </div>
+    <div class="tl-item current">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2017 – PRESENTE</div>
+      <div class="tl-role">Founder & Director — AKADEM</div>
+      <div class="tl-desc">Plataforma de formación ejecutiva enfocada en inteligencia artificial, automatización e innovación aplicada.</div>
+    </div>
+    <div class="tl-item current">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2013 – PRESENTE</div>
+      <div class="tl-role">Founder & CEO — ALTKimia</div>
+      <div class="tl-desc">Firma especializada en innovación aplicada, inteligencia artificial, automatización y escalabilidad empresarial.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">1994 – 2020</div>
+      <div class="tl-role">Socio y Director Ejecutivo — EXE Ingeniería</div>
+      <div class="tl-desc">Liderazgo de proyectos de modernización, transformación digital y plataformas tecnológicas para instituciones públicas y sistemas estratégicos.</div>
+    </div>
+  </div>
+</div>
+
+<div id="educacion" class="panel">
+  <div class="section-label">Formación</div>
+  <div class="section-title">Educación y certificaciones</div>
+  <div class="edu-row">
+    <div class="edu-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+    <div>
+      <div class="edu-title">Ingeniero Civil Industrial</div>
+      <div class="edu-inst">Universidad de Chile</div>
+      <div class="edu-period">1990 – 1996</div>
+    </div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-icon"><i class="ti ti-certificate" aria-hidden="true"></i></div>
+    <div>
+      <div class="edu-title">Magíster en Gestión</div>
+      <div class="edu-inst">Universidad de Chile</div>
+      <div class="edu-period">1998 – 2000</div>
+    </div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-icon"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
+    <div>
+      <div class="edu-title">Diplomado en Marketing</div>
+      <div class="edu-inst">Tecnológico de Monterrey</div>
+      <div class="edu-period">2013 – 2015</div>
+    </div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
+    <div>
+      <div class="edu-title">Coaching Ontológico Empresarial</div>
+      <div class="edu-inst">Newfield Network</div>
+      <div class="edu-period">2010 – 2012</div>
+    </div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-icon"><i class="ti ti-building-community" aria-hidden="true"></i></div>
+    <div>
+      <div class="edu-title">Metodología de Ecosistemas de Innovación</div>
+      <div class="edu-inst">Massachusetts Institute of Technology (M.I.T.)</div>
+      <div class="edu-period">2024 – 2025</div>
+    </div>
+  </div>
+</div>
+
+<div id="resultados" class="panel">
+  <div class="section-label">Impacto</div>
+  <div class="section-title">Resultados destacados</div>
+  <div class="result-grid">
+    <div class="result-card">
+      <div class="rc-icon"><i class="ti ti-building-government" aria-hidden="true"></i></div>
+      <div class="rc-title">Modernización Pública</div>
+      <div class="rc-text">CGR, TGR, SII, IPS, Registro Civil, Ministerio Público, Congreso Nacional y ChileAtiende.</div>
+    </div>
+    <div class="result-card">
+      <div class="rc-icon"><i class="ti ti-ship" aria-hidden="true"></i></div>
+      <div class="rc-title">Logística Portuaria</div>
+      <div class="rc-text">Puerto de Valparaíso, Puerto de San Antonio, Antepuerto Los Andes y Puerto de Arica.</div>
+    </div>
+    <div class="result-card">
+      <div class="rc-icon"><i class="ti ti-road" aria-hidden="true"></i></div>
+      <div class="rc-title">Concesiones MOP</div>
+      <div class="rc-text">Plataformas de operación y auditoría del Sistema de Concesiones del Ministerio de Obras Públicas.</div>
+    </div>
+    <div class="result-card">
+      <div class="rc-icon"><i class="ti ti-rocket" aria-hidden="true"></i></div>
+      <div class="rc-title">Venture Building</div>
+      <div class="rc-text">Formación de empresas en IA, EdTech, GovTech, Gestión del Cambio y Modernización.</div>
+    </div>
+    <div class="result-card">
+      <div class="rc-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></div>
+      <div class="rc-title">Advisor LATAM</div>
+      <div class="rc-text">Escalamiento y preparación para inversión de startups y scaleups a nivel Latinoamericano.</div>
+    </div>
+  </div>
+</div>
+
+<div id="contacto" class="panel">
+  <div class="section-label">Contacto</div>
+  <div class="section-title">Información de contacto</div>
+  <div class="contact-block">
+    <div class="edu-icon"><i class="ti ti-mail" aria-hidden="true"></i></div>
+    <div>
+      <div class="cb-label">Email</div>
+      <a href="mailto:avillalobos@altkimia.com">avillalobos@altkimia.com</a>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="edu-icon"><i class="ti ti-phone" aria-hidden="true"></i></div>
+    <div>
+      <div class="cb-label">Teléfono</div>
+      <a href="tel:+56998251563">+56 9 9825 1563</a>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="edu-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+    <div>
+      <div class="cb-label">Sitio web</div>
+      <a href="https://www.altkimia.com" target="_blank">www.altkimia.com</a>
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="edu-icon"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div>
+    <div>
+      <div class="cb-label">LinkedIn</div>
+      <a href="https://linkedin.com/in/antoniovillalobossantelices" target="_blank">linkedin.com/in/antoniovillalobossantelices</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
